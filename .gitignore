@@ -30,3 +30,6 @@ temp
 nginx-error.log
 
 proxy/local/certs
+
+
+*.pem
