@@ -1,0 +1,29 @@
+version: "3.9"
+
+networks:
+  nginx-proxy:
+    name: nginx-proxy
+
+services:
+
+  podverse_threadcap:
+    image: podverse/podverse_threadcap
+    container_name: podverse_threadcap_sandbox
+    build: ./
+    volumes:
+      - ../../../config/threadcap:/app/threadcap_key
+      - /opt/threadcap_db:/app/threadcap_db
+    command: minipub server --db /app/threadcap_db/storage.db --origin https://ap.stage.podverse.fm --admin-ip 127.0.0.1 --admin-public-key-pem /app/threadcap_key/admin.server.public.pem
+    expose:
+      - 2022
+    ports:
+      - 127.0.0.1:2022:2022
+    hostname: podverse_threadcap
+
+    networks:
+      - nginx-proxy
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "1"
+        max-size: "50m"
