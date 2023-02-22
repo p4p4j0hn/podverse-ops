@@ -317,3 +317,11 @@ sanbox_srv_docker-compose_up:
 .PHONY: sanbox_srv_docker-compose_up-no_dettach
 sanbox_srv_docker-compose_up-no_dettach:
 	docker-compose -f docker-compose/sandbox/srv/docker-compose.yml up
+
+.PHONY: sanbox_threadcap_docker-compose_up
+sanbox_threadcap_docker-compose_up:
+	docker-compose -f docker-compose/sandbox/threadcap/docker-compose.yml up -d
+
+.PHONY: sanbox_threadcap_docker-compose_up-no_dettach
+sanbox_threadcap_docker-compose_up-no_dettach:
+	docker-compose -f docker-compose/sandbox/threadcap/docker-compose.yml up
