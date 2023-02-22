@@ -33,3 +33,4 @@ proxy/local/certs
 
 
 *.pem
+admin.server.json
