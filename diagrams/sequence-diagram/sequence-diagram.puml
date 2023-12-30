@@ -1,0 +1,40 @@
+@startuml pv-parser-non-private
+
+title Podverse Sequence \n Parser \n Custom Non-Private Feed \n Existing Podcast Found for Feed URL
+
+actor pvUser
+control api
+control lambda
+database db
+
+pvUser -> api : Call /parse endpoint with feedUrl
+api -> lambda : Send request to parser lambda with feedUrl
+lambda -> db : Query for podcast with feedUrl
+db -> lambda : Return podcast query result
+lambda -> api : Return podcast found response
+api -> pvUser : Return podcast found response
+
+@enduml
+
+@startuml pv-parser-private
+
+title Podverse Sequence \n Parser \n Custom Private Feed \n Existing Podcast Not Found for Feed URL
+
+actor pvUser
+control api
+control lambda
+database db
+collections rssHost
+
+pvUser -> api : Call /parse endpoint with feedUrl
+api -> lambda : Send request to parser lambda with feedUrl
+lambda -> db : Query for podcast with feedUrl
+db -> lambda : Return podcast not found result
+lambda -> rssHost : Request RSS feed
+rssHost -> lambda : Return RSS feed resopnse
+lambda -> lambda : Parse RSS feed
+lambda -> api : Return parsed result response
+api -> pvUser : Return parsed result response
+
+@enduml
+

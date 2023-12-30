@@ -1,0 +1,64 @@
+@startuml infrastructure
+
+title Podverse Infrastructure
+
+person pvUser
+
+cloud [DigitalOcean] {
+  database db
+  node api
+  node jenkins
+  node manticore
+  node web
+  node workers
+  node liveItemListener
+}
+
+cloud [AWS] {
+  node cloudfront
+  node lambda
+  node s3
+  node sqs
+}
+
+cloud [Firebase] {
+  node fcmNotifications
+}
+
+cloud [Apple] {
+  node appleNotifications
+  node applePayment
+}
+
+cloud [Google] {
+  node googleNotifications
+  node googlePayment
+}
+
+cloud [PayPal] {
+  node paypal
+}
+
+cloud [UnifiedPush] {
+  node unifiedPushNotifications
+}
+
+cloud [PodcastIndex] {
+  node podcastIndexAPI
+}
+
+fcm --> appleNotifications
+fcm --> googleNotifications
+api --> applePayment
+api --> googlePayment
+api --> paypal
+api --> podcastIndexAPI
+
+workers --> fcmNotifications
+workers --> unifiedPushNotifications
+workers --> podcastIndexAPI
+workers --> s3
+workers --> sqs
+lambda --> database
+
+@enduml
