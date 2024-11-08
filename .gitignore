@@ -24,6 +24,7 @@ config/google/jwt.keys.json
 
 manticore/data*
 manticore/episode_export.csv
+manticore/manticore.conf
 
 utils/translate-json/node_modules
 
